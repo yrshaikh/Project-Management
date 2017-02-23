@@ -1,0 +1,46 @@
+﻿@using App.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div id="signin">
+    <div id="pane1" class="col-md-6">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <p id="hello" class="text-center">Hello again :)</p>
+                <p class="msg text-center">Sign in to your account</p>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "username" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+                <p class="forgotpassword">
+                    @Html.ActionLink("I forgot my password", "ForgotPassword")
+                </p>
+                <input type="submit" value="Sign in" class="btn btn-primary" />
+                <p class="signup">
+                    Don't have an account? @Html.ActionLink("Sign up", "Register")
+                </p>
+            }
+        </section>
+    </div>
+    <div id="pane2" class="col-md-6">
+        <p>
+            My favorite things in life don't cost any money. It's really clear that the most precious resource we all have is time.
+        </p>
+        <p> - Steve Jobs</p>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
