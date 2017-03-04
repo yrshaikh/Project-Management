@@ -22,6 +22,8 @@ namespace App.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [HttpGet]
+        [Route("signin")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -31,6 +33,7 @@ namespace App.Controllers
         //
         // POST: /Account/Login
         [HttpPost]
+        [Route("signin")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
@@ -53,6 +56,7 @@ namespace App.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
+        [Route("signup")]
         public ActionResult Register()
         {
             return View();
@@ -61,6 +65,7 @@ namespace App.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
+        [Route("signup")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
@@ -113,6 +118,7 @@ namespace App.Controllers
             Response.Cookies.Add(cookie);
         }
 
+        [Route("signout")]
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();

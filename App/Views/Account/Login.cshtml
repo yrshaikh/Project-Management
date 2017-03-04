@@ -1,7 +1,7 @@
 ﻿@using App.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Sign in";
 }
 
 <div id="signin">
@@ -33,12 +33,7 @@
             }
         </section>
     </div>
-    <div id="pane2" class="col-md-6">
-        <p>
-            My favorite things in life don't cost any money. It's really clear that the most precious resource we all have is time.
-        </p>
-        <p class="bold"> - Steve Jobs</p>
-    </div>
+    @Html.Partial("Partial/_Quote")
 </div>
 
 @section Scripts {
