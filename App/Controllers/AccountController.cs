@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using App.Models;
 using App.Services;
 
@@ -10,6 +13,12 @@ namespace App.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private readonly IUserService _userService;
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -29,6 +38,12 @@ namespace App.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            if (_userService.Authenticate(model.Email, model.Password))
+            {
+                SetAuthCookie(model.Email);
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");
@@ -52,11 +67,10 @@ namespace App.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserService service = new UserService();
-                if (!service.IsEmailRegistered(model.Email))
+                if (!_userService.IsEmailRegistered(model.Email))
                 {
-                    service.Register(model);
-                    // create auth cookie and log him in
+                    _userService.Register(model);
+                    SetAuthCookie(model.Email);
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("Email", "Email address is already taken.");
@@ -76,5 +90,33 @@ namespace App.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
+
+        public void SetAuthCookie(string email, bool isPersistent=true)
+        {
+            string userData = "";
+
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+              1,                                     // ticket version
+              email,                              // authenticated username
+              DateTime.Now,                          // issueDate
+              DateTime.Now.AddMinutes(30),           // expiryDate
+              isPersistent,                          // true to persist across browser sessions
+              userData,                              // can be used to store additional user data
+              FormsAuthentication.FormsCookiePath);  // the path for the cookie
+
+            // Encrypt the ticket using the machine key
+            string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+
+            // Add the cookie to the request to save it
+            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+            cookie.HttpOnly = true;
+            Response.Cookies.Add(cookie);
+        }
+
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
