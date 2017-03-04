@@ -25,3 +25,5 @@ a:hover { color: #59AAEA;}
 #signin #pane1 .signup { text-align: center;margin-top: 15px;color: #999;font-weight: bold;}
 #signin #pane1 .btn { width: 230px;margin-left: 25px;padding: 13px 0px;font-weight: bold;}
 #signin #pane1  input[type=text],#signin #pane1  input[type=password]  { margin: 0 auto;width: 230px;margin-bottom: 20px;font-weight: bold;}
+#signin.register {min-height: 500px;}
+#signin.register #pane1, #signin.register #pane2 {min-height: 500px;}

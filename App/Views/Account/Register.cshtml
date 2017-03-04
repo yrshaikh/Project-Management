@@ -3,38 +3,42 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div id="signin" class="register">
+    <div id="pane1" class="col-md-6">
+        <section id="loginForm">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <p id="hello" class="text-center">Sign up in seconds.</p>
+                <p class="msg text-center">Prepare for lift-off!</p>
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div>
+                    @Html.TextBoxFor(m => m.Name, new {@class = "form-control", @placeholder = "full name"})
+                </div>
+            <div>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "email" })
+                </div>
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "password" })
+                </div>
+                <div>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "confirm your password" })
+                </div>
+                <input type="submit" value="Sign Up" class="btn btn-primary" />
+                <p class="signup">
+                    I already have an account. @Html.ActionLink("Sign in", "Login")
+                </p>
+            }
+        </section>
+    </div>
+    <div id="pane2" class="col-md-6">
+        <p>
+            My favorite things in life don't cost any money. It's really clear that the most precious resource we all have is time.
+        </p>
+        <p class="bold"> - Steve Jobs</p>
+    </div>
+</div>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
