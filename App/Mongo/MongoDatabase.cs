@@ -19,5 +19,11 @@ namespace App.Mongo
             var document = Database.GetCollection<T>(TableName).Find(filter).FirstOrDefault();
             return document;
         }
+
+        public T Find<T>(FilterDefinition<T> filter)
+        {
+            var document = Database.GetCollection<T>(TableName).Find(filter).FirstOrDefault();
+            return document;
+        }
     }
 }
