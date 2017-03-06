@@ -1,4 +1,5 @@
 ﻿using App.Models;
+using App.Models.User;
 
 namespace App.Services
 {
@@ -7,5 +8,6 @@ namespace App.Services
         bool IsEmailRegistered(string email);
         bool Authenticate(string email, string password);
         void Register(RegisterViewModel model);
+        AuthenticatedUserModel GetUserDetails(string email);
     }
 }

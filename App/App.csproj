@@ -155,6 +155,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\User\AuthenticatedUserModel.cs" />
     <Compile Include="Mongo\MongoDatabase.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\TableNameConstants.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Mongo\MongoDbConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\CookieManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

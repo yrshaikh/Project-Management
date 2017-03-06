@@ -1,15 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using App.Models;
+using App.Models.User;
 using App.Services;
+using App.Utilities;
 
 namespace App.Controllers
 {
-    // http://stackoverflow.com/questions/18594316/custom-authentication-and-asp-net-mvc
-    // http://stackoverflow.com/questions/7217105/how-can-i-manually-create-a-authentication-cookie-instead-of-the-default-method
     [Authorize]
     public class AccountController : Controller
     {
@@ -45,7 +43,8 @@ namespace App.Controllers
 
             if (_userService.Authenticate(model.Email, model.Password))
             {
-                SetAuthCookie(model.Email);
+                AuthenticatedUserModel authenticatedUser = _userService.GetUserDetails(model.Email);
+                CookieManager.SetAuthCookie(model.Email, authenticatedUser, model.RememberMe);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -75,7 +74,9 @@ namespace App.Controllers
                 if (!_userService.IsEmailRegistered(model.Email))
                 {
                     _userService.Register(model);
-                    SetAuthCookie(model.Email);
+                    AuthenticatedUserModel authenticatedUser = _userService.GetUserDetails(model.Email);
+
+                    CookieManager.SetAuthCookie(model.Email, authenticatedUser);
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("Email", "Email address is already taken.");
@@ -95,28 +96,6 @@ namespace App.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
-
-        public void SetAuthCookie(string email, bool isPersistent=true)
-        {
-            string userData = "";
-
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
-              1,                                     // ticket version
-              email,                              // authenticated username
-              DateTime.Now,                          // issueDate
-              DateTime.Now.AddMinutes(30),           // expiryDate
-              isPersistent,                          // true to persist across browser sessions
-              userData,                              // can be used to store additional user data
-              FormsAuthentication.FormsCookiePath);  // the path for the cookie
-
-            // Encrypt the ticket using the machine key
-            string encryptedTicket = FormsAuthentication.Encrypt(ticket);
-
-            // Add the cookie to the request to save it
-            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-            cookie.HttpOnly = true;
-            Response.Cookies.Add(cookie);
-        }
 
         [Route("signout")]
         public ActionResult LogOff()
