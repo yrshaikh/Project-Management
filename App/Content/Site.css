@@ -10,8 +10,8 @@ input[type=text], input[type=password]  { padding: 20px;}
 .bold { font-weight: bold;}
 /* buttons */
 .btn { border: 0px;}
-a { color: #1b6ac9;}
-a:hover { color: #2b6ac9;}
+a { color: #50A5D2;}
+a:hover { color: #50A5D2;}
 .btn-primary {background-color: #3cb371;border-color: #3cb371;border-bottom-color: rgba(0,0,0,0.15);}
 .btn-primary:hover {background-color: #2f8d59;border-color: #2f8d59;;}
 
@@ -28,5 +28,6 @@ a:hover { color: #2b6ac9;}
 #signin.register {min-height: 500px;}
 #signin.register #pane1, #signin.register #pane2 {min-height: 500px;}
 
-.navbar-inverse {background-color: #1D8CC6;border-bottom: 3px solid #1A84BC;}
+.navbar-inverse {background-color: #1D8CC6;border-bottom: 6px solid #1A84BC;}
 .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand { color: #fff;}
+.navbar-inverse .navbar-nav > .dropdown > a .caret {border-top-color: #fff;}
