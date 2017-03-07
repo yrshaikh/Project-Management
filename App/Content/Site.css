@@ -30,3 +30,23 @@ a:hover { color: #2b6ac9;}
 
 .navbar-inverse {background-color: #1D8CC6;border-bottom: 3px solid #1A84BC;}
 .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand { color: #fff;}
+
+#signin .form-input { position: relative;}
+#signin .form-input .form-control { -ms-border-radius: 0px; border-radius: 0px; }
+#signin #pane1 .form-input .form-control.input-validation-error { border-left: 5px solid #D76260; background-color: #FBFBFD;margin-bottom: 0px; }
+
+#signin #pane1 .form-input .field-validation-error {
+    display: block;     margin: 0 auto;font-size: 12px;-ms-border-radius: 3px;
+    border-radius: 3px;
+    width: 230px;padding: 2px;background: #D76260;color: #fff;margin-top: 10px; margin-bottom: 10px;
+}
+
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  
+  border-bottom: 5px solid black;
+}
