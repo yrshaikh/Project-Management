@@ -19,11 +19,22 @@
                 @Html.ActionLink("App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Features", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Road Map", "Index", "Home")</li>
-                </ul>
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Projects", "Index", "Home")</li>
+                        <li>@Html.ActionLink("My Tasks", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Activity", "Index", "Home")</li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Features", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Road Map", "Index", "Home")</li>
+                    </ul>
+                }
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
