@@ -7,19 +7,20 @@
 <div id="signin">
     <div id="pane1" class="col-md-6">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", name = "loginForm" }))
             {
                 @Html.AntiForgeryToken()
                 <p id="hello" class="text-center">Hello again :)</p>
                 <p class="msg text-center">Sign in to your account</p>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div>
+                <div class="form-input">
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "username" })
+                    <span class="arrow-up"></span>
                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                 </div>
 
-                <div>
+                <div class="form-input">
                     @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "password" })
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
