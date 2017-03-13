@@ -8,6 +8,7 @@ namespace App.Services
         bool IsEmailRegistered(string email);
         bool Authenticate(string email, string password);
         void Register(RegisterViewModel model);
+        RegisterViewModel GetUser(string email);
         AuthenticatedUserModel GetUserDetails(string email);
     }
 }

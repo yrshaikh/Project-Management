@@ -1,11 +1,13 @@
+using System.Collections.Generic;
+using App.Models.Project;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace App.Mongo
 {
-    public class MongoDatabase : AbstractMongoDatabase
+    public class MongoDbImplementation : AbstractMongoDatabase
     {
-        public MongoDatabase(string tableName) : base(tableName)
+        public MongoDbImplementation(string tableName) : base(tableName)
         {
         }
 
@@ -20,9 +22,15 @@ namespace App.Mongo
             return document;
         }
 
-        public T Find<T>(FilterDefinition<T> filter)
+        public T FindOne<T>(FilterDefinition<T> filter)
         {
             var document = Database.GetCollection<T>(TableName).Find(filter).FirstOrDefault();
+            return document;
+        }
+
+        public List<T> FindAll<T>(FilterDefinition<T> filter)
+        {
+            var document = Database.GetCollection<T>(TableName).Find(filter).ToList();
             return document;
         }
     }

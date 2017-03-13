@@ -48,6 +48,7 @@ namespace App.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 kernel.Bind<IUserService>().To<UserService>();
+                kernel.Bind<IProjectService>().To<ProjectService>();
 
                 RegisterServices(kernel);
                 return kernel;
